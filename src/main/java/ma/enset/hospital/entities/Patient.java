@@ -10,7 +10,7 @@ import java.util.Date;
 public class Patient {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
     private String nom;
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
