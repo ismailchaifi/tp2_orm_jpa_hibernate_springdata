@@ -1,6 +1,5 @@
 package ma.enset.hospital.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +12,6 @@ public class Consultation {
     private String id;
     private Date dateConsultation;
     private String rapport;
-    @OneToOne @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToOne
     private RendezVous rendezVous;
 }
