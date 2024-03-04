@@ -1,19 +1,16 @@
 package ma.enset.hospital;
 
 import ma.enset.hospital.entities.*;
-import ma.enset.hospital.repositories.ConsultationRepository;
 import ma.enset.hospital.repositories.MedecinRepository;
 import ma.enset.hospital.repositories.PatientRepository;
 import ma.enset.hospital.repositories.RendezVousRepository;
 import ma.enset.hospital.service.HospitalServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Date;
-import java.util.List;
 import java.util.stream.Stream;
 
 @SpringBootApplication
@@ -59,7 +56,7 @@ public class HospitalApplication {
                         service.saveMedecin(medecin);
                     });
 
-            Patient patient1 = patientRepository.findById(1L).orElse(null);
+            Patient patient1 = patientRepository.findAll().get(0);
             Medecin medecin1 = medecinRepository.findByNom("Medecin 2");
 
             RendezVous rdv = RendezVous.builder()
@@ -70,7 +67,7 @@ public class HospitalApplication {
                     .build();
             service.saveRDV(rdv);
 
-            RendezVous rdv1 = rendezVousRepository.findById(1L).orElse(null);
+            RendezVous rdv1 = rendezVousRepository.findAll().get(0);
 
             Consultation consultation = Consultation.builder()
                     .dateConsultation(new Date())

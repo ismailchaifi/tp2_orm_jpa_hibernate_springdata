@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString @Builder
 public class Patient {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private String id;
     private String nom;
     @Temporal(TemporalType.DATE)

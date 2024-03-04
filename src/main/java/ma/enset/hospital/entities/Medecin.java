@@ -8,8 +8,8 @@ import java.util.Collection;
 @Entity @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString @Builder
 public class Medecin {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    private String id;
     private String nom;
     private String email;
     private String specialite;
