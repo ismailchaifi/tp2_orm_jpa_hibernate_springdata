@@ -5,6 +5,7 @@ import ma.enset.hospital.repositories.MedecinRepository;
 import ma.enset.hospital.repositories.PatientRepository;
 import ma.enset.hospital.repositories.RendezVousRepository;
 import ma.enset.hospital.service.HospitalServiceImpl;
+import ma.enset.hospital.service.IUserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +23,7 @@ public class HospitalApplication {
 
     @Bean
     CommandLineRunner start(HospitalServiceImpl service,
+                            IUserService userService,
                             PatientRepository patientRepository,
                             MedecinRepository medecinRepository,
                             RendezVousRepository rendezVousRepository) {
@@ -75,6 +77,48 @@ public class HospitalApplication {
                     .rendezVous(rdv1)
                     .build();
             service.saveConsultation(consultation);
+
+            User u1 = new User();
+            u1.setUsername("user");
+            u1.setPassword("123456");
+            userService.addNewUser(u1);
+
+            User u2 = new User();
+            u2.setUsername("admin");
+            u2.setPassword("admin123");
+            userService.addNewUser(u2);
+
+            Stream.of("STUDENT","USER","ADMIN").forEach(name -> {
+                Role r1 = new Role();
+                r1.setRoleName(name);
+                userService.addNewRole(r1);
+            });
+
+            userService.addRoleToUser("user", "USER");
+            userService.addRoleToUser("user", "STUDENT");
+            userService.addRoleToUser("admin", "USER");
+            userService.addRoleToUser("admin", "ADMIN");
+
+            try {
+                User user = userService.authenticate("user", "123456");
+                System.out.println(user.getUserID());
+                System.out.println(user.getUsername());
+                System.out.println("Roles: ");
+                for (Role role : user.getRoles()) {
+                    System.out.println(role.toString());
+                }
+
+                /*User badUser = userService.authenticate("user", "12");
+                System.out.println(badUser.getUserID());
+                System.out.println(badUser.getUsername());
+                System.out.println("Roles: ");
+                for (Role role : badUser.getRoles()) {
+                    System.out.println(role.toString());
+                }*/
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         };
     }
 }

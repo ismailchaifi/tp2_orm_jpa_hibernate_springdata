@@ -13,6 +13,6 @@ public class Medecin {
     private String nom;
     private String email;
     private String specialite;
-    @OneToMany(mappedBy = "medecin", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "medecin", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<RendezVous> rendezVous;
 }

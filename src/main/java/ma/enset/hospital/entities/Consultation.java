@@ -13,6 +13,6 @@ public class Consultation {
     private String id;
     private Date dateConsultation;
     private String rapport;
-    @OneToOne @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToOne(cascade = CascadeType.ALL) @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private RendezVous rendezVous;
 }
